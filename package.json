@@ -1,5 +1,5 @@
 {
-  "name": "MusicManager",
+  "name": "musicmanager",
   "version": "1.0.0",
   "description": "一个简单的音乐后台管理系统",
   "main": "index.js",
@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/Rickeyhyq/MusicManager/issues"
   },
-  "homepage": "https://github.com/Rickeyhyq/MusicManager#readme"
+  "homepage": "https://github.com/Rickeyhyq/MusicManager#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.24",
+    "xtemplate": "^4.6.0",
+    "xtpl": "^3.3.0"
+  }
 }
