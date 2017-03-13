@@ -3,8 +3,8 @@ const path = require('path')
 const fs = require('fs')
 const MongoClient = require('mongodb').MongoClient
 
-module.exports.getLoginPage = (req, res) => {
-  console.log('LoginPage')
+module.exports.getStudentList = (req, res) => {
+  console.log('studentList')
   fs.readFile(path.join(__dirname, '../views/login.html'), (error, content) => {
     if (error) console.log(error)
     res.setHeader('Content-Type', 'text/html;charset=utf-8')
