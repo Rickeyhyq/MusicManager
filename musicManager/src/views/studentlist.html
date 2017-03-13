@@ -1,73 +1,74 @@
-{{extend ("./parent.html")}}
+{{extend ("./parent.html")}} {{#block ("body")}}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<ol class="breadcrumb">
+			<li><a href="#">首页</a></li>
+			<li><a href="#">歌曲管理</a></li>
+			<li class="active">歌曲列表</li>
+		</ol>
+	</div>
+	<div class="panel-heading">
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">歌曲名称</span>
+			<input type="text" class="form-control" id="studentName" placeholder="请输入歌曲名称进行查询" aria-describedby="basic-addon1" style="width:200px;margin-right:10px;"
+			  value="{{keyword}}">
+			<input type="button" class="btn btn-success" onclick='search()' value="查找" style="margin-right:10px;">
+			<input type="button" class="btn btn-success" value="新增" onclick="window.location='/studentmanager/add'">
+		</div>
+	</div>
+	<div class="panel-body">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>歌曲名称</th>
+					<th>性别</th>
+					<th>年龄</th>
+					<th>发布时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each(musics)}}
+				<tr>
+					<td>{{this.name}}</td>
+					<td>{{this.song}}</td>
+					<td>{{this.gender}}</td>
+					<td>{{this.age}}</td>
+					<td>{{this.date}}</td>
+					<td>
+						<a href="/studentmanager/edit/{{this._id}}" class="btn btn-success">编辑</a> |
 
-{{#block ("body")}}
-    <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <ol class="breadcrumb">
-                            <li><a href="#">首页</a></li>
-                            <li><a href="#">学生管理</a></li>
-                            <li class="active">学生列表</li>
-                        </ol>
-                    </div>
-                    <div class="panel-heading">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">学生姓名</span>
-                            <input type="text" class="form-control" id="studentName" placeholder="请输入学生姓名进行查询" aria-describedby="basic-addon1" style="width:200px;margin-right:10px;" value="{{keyword}}">
-                            <input type="button" class="btn btn-success" onclick='search()' value="查找" style="margin-right:10px;">
-                            <input type="button" class="btn btn-success" value="新增" onclick="window.location='/studentmanager/add'">
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>姓名</th>
-                                    <th>年龄</th>
-                                    <th>性别</th>
-                                    <th>手机号码</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each(studentlist)}}
-                                    <tr>
-                                        <td>{{this.name}}</td>
-                                        <td>{{this.age}}</td>
-                                        <td>{{this.sex}}</td>
-                                        <td>{{this.phone}}</td>
-                                        <td>
-                                            <a href="/studentmanager/edit/{{this._id}}" class ="btn btn-success" >编辑</a> | 
+						<input type="button" class="btn btn-danger" onclick="del('{{this._id}}')" value="删除">
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	function del(studentId) {
+		if (!confirm("确定要删除该条数据吗?")) {
+			return;
+		}
 
-                                            <input type="button" class ="btn btn-danger" onclick="del('{{this._id}}')" value="删除">
-                                        </td>
-                                    </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-     </div>
-     <script type="text/javascript">
-            function del(studentId) {
-                if (!confirm("确定要删除该条数据吗?")) {
-                        return;
-                }
+		var url = '/studentmanager/delete/' + studentId;
+		$.getJSON(url, null, function (jsObj) {
+			if (jsObj.status == 0) { //失败
+				alert(jsObj.message)
+			} else { //成功
+				//alert(jsObj.message)
+				window.location = window.location
+			}
+		})
+	}
 
-                var url = '/studentmanager/delete/'+studentId;
-                $.getJSON(url,null,function(jsObj){
-                        if (jsObj.status==0) {//失败
-                            alert(jsObj.message)
-                        }else{ //成功
-                            //alert(jsObj.message)
-                            window.location = window.location
-                        }
-                })
-            }
+	//搜索
+	function search() {
+		var studentName = $("#studentName").val();
 
-            //搜索
-            function search(){
-                var studentName = $("#studentName").val();
-
-                window.location.href="/studentmanager/list?keyword="+studentName;
-            }
-     </script>
+		window.location.href = "/studentmanager/list?keyword=" + studentName;
+	}
+</script>
 {{/block}}

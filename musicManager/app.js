@@ -15,12 +15,12 @@ app.get('/', (req, res) => {
   res.end('OK')
 })
 
-const accountRouter = require(path.join(__dirname, './src/router/accountRouter'))
-const studentManagerRouter = require(path.join(__dirname, './src/router/studentManagerRouter'))
+const accountRouter = require(path.join(__dirname, './src/router/accountRouter.js'))
+const musicManagerRouter = require(path.join(__dirname, './src/router/musicManagerRouter.js'))
 
-app.use(express.static(path.join(__dirname, 'src/statics')))
+app.use(express.static(path.join(__dirname, './src/statics')))
 app.use('/account', accountRouter)
-app.use('/list', studentManagerRouter)
+app.use('/list', musicManagerRouter)
 
 app.listen(5000, (error) => {
   if (error) console.log(error)
