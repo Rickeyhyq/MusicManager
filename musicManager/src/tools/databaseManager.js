@@ -1,15 +1,19 @@
 'use strict'
 const MongoClient = require('mongodb').MongoClient
-const path = require('path')
 
 const url = 'mongodb://localhost:27017/musicmanager'
 
+// 定义一个全局变量
 let mydb = null
+
+// 连接数据库
 MongoClient.connect(url, (error, db) => {
   if (error) console.log(error)
+  // 将db对象赋值给全局变量mydb
   mydb = db
 })
 
+// 导出操作数据库的一些方法
 module.exports = {
   findOne: (collectionName, options, callback) => {
     mydb.collection(collectionName).findOne(options, (error, docs) => {
