@@ -10,8 +10,8 @@
 	<div class="panel-heading">
 		<div class="input-group">
 			<span class="input-group-addon" id="basic-addon1">歌曲名称</span>
-			<input type="text" class="form-control" id="studentName" placeholder="请输入歌曲名称进行查询" aria-describedby="basic-addon1" style="width:200px;margin-right:10px;"
-			  value="{{keyword}}">
+			<input type="text" class="form-control" id="musicName" placeholder="请输入歌曲名称进行查询" aria-describedby="basic-addon1" style="width:200px;margin-right:10px;"
+			  value="{{ keyword }}">
 			<input type="button" class="btn btn-success" onclick='search()' value="查找" style="margin-right:10px;">
 			<input type="button" class="btn btn-success" value="新增" onclick="window.location.href='/musicmanager/add'">
 		</div>
@@ -48,17 +48,17 @@
 	</div>
 </div>
 <script type="text/javascript">
-	function del(studentId) {
+	function del(musicId) {
 		if (!confirm("确定要删除该条数据吗?")) {
 			return;
 		}
 
-		var url = '/studentmanager/delete/' + studentId;
-		$.getJSON(url, null, function (jsObj) {
-			if (jsObj.status == 0) { //失败
-				alert(jsObj.message)
-			} else { //成功
-				//alert(jsObj.message)
+		var url = '/musicmanager/delete/' + musicId;
+		$.getJSON(url, null, function (result) {
+			if (result.status == 0) { // 删除失败
+				alert(result.message)
+			} else { // 删除成功
+				alert(result.message)
 				window.location = window.location
 			}
 		})
@@ -66,9 +66,9 @@
 
 	//搜索
 	function search() {
-		var studentName = $("#studentName").val();
+		var musicName = $("#musicName").val();
 
-		window.location.href = "/studentmanager/list?keyword=" + studentName;
+		window.location.href = "/musicmanager/musiclist?keyword=" + musicName;
 	}
 </script>
 {{/block}}

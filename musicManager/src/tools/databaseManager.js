@@ -42,7 +42,7 @@ module.exports = {
     })
   },
   deleteOne: (collectionName, options, callback) => {
-    mydb.collection(collectionName).updateOne(options, (error, result) => {
+    mydb.collection(collectionName).deleteOne(options, (error, result) => {
       if (error) console.log(error)
       callback(result)
     })

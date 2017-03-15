@@ -9,9 +9,14 @@ const databaseManager = require(path.join(__dirname, '../tools/databaseManager.j
 module.exports = {
   // 跳转到歌曲列表页面
   getMusicList: (req, res) => {
-    databaseManager.findList('musics', {}, (docs) => {
+    // 获取查询字符串
+    const keyword = req.query.keyword || ''
+    databaseManager.findList('musics', { name: {$regex: keyword} }, (docs) => {
+      console.log(docs)
       xtpl.renderFile(path.join(__dirname, '../views/musiclist.html'), {
-        musics: docs
+        musics: docs,
+        keyword: keyword,
+        loginedname: req.session.loginedname
       }, (error, content) => {
         if (error) console.log(error)
         res.setHeader('Content-Type', 'text/html;charset=utf-8')
@@ -22,7 +27,9 @@ module.exports = {
   // 跳转到添加歌曲页面
   getAddPage: (req, res) => {
     console.log('addPage')
-    xtpl.renderFile(path.join(__dirname, '../views/add.html'), (error, content) => {
+    xtpl.renderFile(path.join(__dirname, '../views/add.html'), {
+      loginedname: req.session.loginedname
+    }, (error, content) => {
       if (error) console.log(error)
       res.setHeader('Content-Type', 'text/html;charset=utf-8')
       res.end(content)
@@ -55,7 +62,8 @@ module.exports = {
       _id: objectId
     }, (result) => {
       xtpl.renderFile(path.join(__dirname, '../views/edit.html'), {
-        music: result
+        music: result,
+        loginedname: req.session.loginedname
       }, (error, content) => {
         if (error) console.log(error)
         res.setHeader('Content-Type', 'text/html;charset=utf-8')
@@ -83,6 +91,22 @@ module.exports = {
       } else {
         res.end('<script>alert("修改歌曲信息失败")</script>')
       }
+    })
+  },
+  // 删除歌曲
+  getDeletePage: (req, res) => {
+    const id = req.params.musicId
+    const objectId = databaseManager.ObjectId(id)
+    databaseManager.deleteOne('musics', { _id: objectId }, (result) => {
+      let resultObj = {
+        status: 1,
+        message: "删除成功"
+      }
+      if (result == null) {
+        resultObj.status = 0
+        resultObj.message = '删除失败'
+      }
+      res.json(resultObj)
     })
   }
 }

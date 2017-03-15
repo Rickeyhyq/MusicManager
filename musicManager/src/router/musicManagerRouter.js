@@ -17,6 +17,8 @@ musicManagerRouter.post('/add', musicManagerCtrl.getAddMusic)
 musicManagerRouter.get('/edit/:musicId', musicManagerCtrl.getEditPage)
 // 提交编辑后的信息 
 musicManagerRouter.post('/edit/:musicId', musicManagerCtrl.getEditMusic)
+// 删除歌曲
+musicManagerRouter.get('/delete/:musicId', musicManagerCtrl.getDeletePage)
 
 
 // 导出歌曲管理对象
