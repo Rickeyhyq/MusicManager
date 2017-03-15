@@ -11,6 +11,8 @@ const accountCtrl = require(path.join(__dirname, '../controller/accountControlle
 accountRouter.get('/login', accountCtrl.getLoginPage)
 // 处理登录逻辑
 accountRouter.post('/login', accountCtrl.login)
+// 处理退出逻辑
+accountRouter.get('/logout', accountCtrl.logout)
 
 // 导出账户管理对象
 module.exports = accountRouter

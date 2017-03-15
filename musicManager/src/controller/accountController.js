@@ -29,11 +29,18 @@ module.exports = {
       console.log(account)
       if (account !== null) {
         req.session.loginedname = uname
+        res.setHeader('Content-Type', 'text/html;charset=utf-8')        
         res.end('<script>window.location.href = "/musicmanager/musiclist"</script>')
       } else {
         req.session.loginedname = null
+        res.setHeader('Content-Type', 'text/html;charset=utf-8')
         res.end('<script>alert("用户名或密码错误,请重新登录"); window.location.href = "/account/login"</script>')
       }
     })
+  },
+  // 处理退出逻辑
+  logout: (req, res) => {
+    req.session.loginedname = null
+    res.end("<script>window.location.href='/account/login'</script>")
   }
 }

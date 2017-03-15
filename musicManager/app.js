@@ -17,8 +17,8 @@ app.use(session({
 app.use(bodyParser.urlencoded({
   extended: false
 }))
-
-// app.use(bodyParser.json())
+// 要先引入静态资源请求路径，否则下面all请求失败后，返回login页面没有请求不到样式
+app.use(express.static(path.join(__dirname, './src/statics')))
 
 app.all('/*', (req, res, next) => {
   if (req.url == '/account/login' || req.url == 'account/register') {
@@ -35,7 +35,6 @@ app.all('/*', (req, res, next) => {
 const accountRouter = require(path.join(__dirname, './src/router/accountRouter.js'))
 const musicManagerRouter = require(path.join(__dirname, './src/router/musicManagerRouter.js'))
 
-app.use(express.static(path.join(__dirname, './src/statics')))
 app.use('/account', accountRouter)
 app.use('/musicmanager', musicManagerRouter)
 
