@@ -13,6 +13,10 @@ accountRouter.get('/login', accountCtrl.getLoginPage)
 accountRouter.post('/login', accountCtrl.login)
 // 处理退出逻辑
 accountRouter.get('/logout', accountCtrl.logout)
+// 请求注册页面
+accountRouter.get('/register', accountCtrl.getRegisterPage)
+// 提交注册信息
+accountRouter.post('/register', accountCtrl.register)
 
 // 导出账户管理对象
 module.exports = accountRouter

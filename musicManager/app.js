@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, './src/statics')))
 
 app.all('/*', (req, res, next) => {
-  if (req.url == '/account/login' || req.url == 'account/register') {
+  if (req.url == '/account/login' || req.url == '/account/register') {
     next()
   } else {
     if (req.session.loginedname == null) {

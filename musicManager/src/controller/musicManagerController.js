@@ -11,7 +11,11 @@ module.exports = {
   getMusicList: (req, res) => {
     // 获取查询字符串
     const keyword = req.query.keyword || ''
-    databaseManager.findList('musics', { name: {$regex: keyword} }, (docs) => {
+    databaseManager.findList('musics', {
+      name: {
+        $regex: keyword
+      }
+    }, (docs) => {
       console.log(docs)
       xtpl.renderFile(path.join(__dirname, '../views/musiclist.html'), {
         musics: docs,
@@ -97,7 +101,9 @@ module.exports = {
   getDeletePage: (req, res) => {
     const id = req.params.musicId
     const objectId = databaseManager.ObjectId(id)
-    databaseManager.deleteOne('musics', { _id: objectId }, (result) => {
+    databaseManager.deleteOne('musics', {
+      _id: objectId
+    }, (result) => {
       let resultObj = {
         status: 1,
         message: "删除成功"
@@ -106,6 +112,7 @@ module.exports = {
         resultObj.status = 0
         resultObj.message = '删除失败'
       }
+      res.setHeader('Content-Type', 'application/json;charset=utf-8')
       res.json(resultObj)
     })
   }
