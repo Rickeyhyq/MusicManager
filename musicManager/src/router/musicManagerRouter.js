@@ -4,7 +4,7 @@ const path = require('path')
 
 // 创建路由
 const musicManagerRouter = express.Router()
-
+// 导入歌曲管理控制器
 const musicManagerCtrl = require(path.join(__dirname, '../controller/musicManagerController.js'))
 
 // 跳转到歌曲列表页面
@@ -13,7 +13,11 @@ musicManagerRouter.get('/musiclist', musicManagerCtrl.getMusicList)
 musicManagerRouter.get('/add', musicManagerCtrl.getAddPage)
 // 添加歌曲
 musicManagerRouter.post('/add', musicManagerCtrl.getAddMusic)
+// 编辑歌曲信息
+musicManagerRouter.get('/edit/:musicId', musicManagerCtrl.getEditPage)
+// 提交编辑后的信息 
+musicManagerRouter.post('/edit/:musicId', musicManagerCtrl.getEditMusic)
 
-// musicManagerRouter.post('/login', musicManagerCtrl.login)
 
+// 导出歌曲管理对象
 module.exports = musicManagerRouter

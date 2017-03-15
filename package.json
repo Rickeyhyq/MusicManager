@@ -20,6 +20,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "express-session": "^1.15.1",
     "mongodb": "^2.2.24",
     "xtemplate": "^4.6.0",
     "xtpl": "^3.3.0"
