@@ -10,7 +10,7 @@ module.exports.getMusicList = (req, res) => {
   MongoClient.connect(url, (error, db) => {
     db.collection('musics').find({}).toArray((error, docs) => {
       if (error) console.log(error)
-      xtpl.renderFile(path.join(__dirname, '../views/studentlist.html'), {
+      xtpl.renderFile(path.join(__dirname, '../views/musiclist.html'), {
         musics: docs
       }, (error, content) => {
         if (error) console.log(error)

@@ -22,10 +22,10 @@ module.exports.login = (req, res) => {
       username: req.body.uname,
       password: req.body.pwd,
       status: 0
-    }, (error, doc) => {
+    }, (error, docs) => {
       if (error) console.log(error)
-      console.log(doc)
-      if (doc !== null) {
+      console.log(docs)
+      if (docs !== null) {
         res.end('<script>window.location.href = "/list/musicManager"</script>')
       } else {
         res.end('<script>alert("用户名或密码错误,请重新登录"); window.location.href = "/account/login"</script>')
