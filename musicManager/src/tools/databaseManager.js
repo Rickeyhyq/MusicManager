@@ -1,5 +1,6 @@
 'use strict'
-const MongoClient = require('mongodb').MongoClient
+const mongodb = require('mongodb')
+const MongoClient = mongodb.MongoClient
 
 const url = 'mongodb://localhost:27017/musicmanager'
 
@@ -15,6 +16,7 @@ MongoClient.connect(url, (error, db) => {
 
 // 导出操作数据库的一些方法
 module.exports = {
+  ObjectId: mongodb.ObjectId,
   findOne: (collectionName, options, callback) => {
     mydb.collection(collectionName).findOne(options, (error, docs) => {
       if (error) console.log(error)
@@ -24,8 +26,7 @@ module.exports = {
   insertOne: (collectionName, options, callback) => {
     mydb.collection(collectionName).insertOne(options, (error, result) => {
       if (error) console.log(error)
-      const insertSuccess = result.result.n
-      callback(insertSuccess)
+      callback(result)
     })
   },
   findList: (collectionName, options, callback) => {
@@ -37,17 +38,13 @@ module.exports = {
   updateOne: (collectionName, options, updateDoc, callback) => {
     mydb.collection(collectionName).updateOne(options, { $set: updateDoc }, (error, result) => {
       if (error) console.log(error)
-      callback(result.result.nModified)
+      callback(result)
     })
   },
   deleteOne: (collectionName, options, callback) => {
     mydb.collection(collectionName).updateOne(options, (error, result) => {
       if (error) console.log(error)
-      if (doc != null) {
-        callback(true)
-      } else {
-        callback(false)
-      }
+      callback(result)
     })
   }
 }

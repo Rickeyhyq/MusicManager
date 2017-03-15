@@ -27,7 +27,7 @@ module.exports.login = (req, res) => {
   }, (account) => {
     console.log(account)
     if (account !== null) {
-      res.end('<script>window.location.href = "/list/musicManager"</script>')
+      res.end('<script>window.location.href = "/musicmanager/musiclist"</script>')
     } else {
       res.end('<script>alert("用户名或密码错误,请重新登录"); window.location.href = "/account/login"</script>')
     }

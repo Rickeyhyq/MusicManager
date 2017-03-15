@@ -13,7 +13,7 @@
 			<input type="text" class="form-control" id="studentName" placeholder="请输入歌曲名称进行查询" aria-describedby="basic-addon1" style="width:200px;margin-right:10px;"
 			  value="{{keyword}}">
 			<input type="button" class="btn btn-success" onclick='search()' value="查找" style="margin-right:10px;">
-			<input type="button" class="btn btn-success" value="新增" onclick="window.location='/studentmanager/add'">
+			<input type="button" class="btn btn-success" value="新增" onclick="window.location.href='/musicmanager/add'">
 		</div>
 	</div>
 	<div class="panel-body">
@@ -21,10 +21,10 @@
 			<thead>
 				<tr>
 					<th>姓名</th>
-					<th>歌曲名称</th>
-					<th>性别</th>
 					<th>年龄</th>
-					<th>发布时间</th>
+					<th>性别</th>
+					<th>电话</th>
+					<th>地址</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -32,10 +32,10 @@
 				{{#each(musics)}}
 				<tr>
 					<td>{{this.name}}</td>
-					<td>{{this.song}}</td>
-					<td>{{this.gender}}</td>
 					<td>{{this.age}}</td>
-					<td>{{this.date}}</td>
+					<td>{{this.sex}}</td>
+					<td>{{this.phone}}</td>
+					<td>{{this.address}}</td>
 					<td>
 						<a href="/studentmanager/edit/{{this._id}}" class="btn btn-success">编辑</a> |
 

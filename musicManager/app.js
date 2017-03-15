@@ -20,7 +20,7 @@ const musicManagerRouter = require(path.join(__dirname, './src/router/musicManag
 
 app.use(express.static(path.join(__dirname, './src/statics')))
 app.use('/account', accountRouter)
-app.use('/list', musicManagerRouter)
+app.use('/musicmanager', musicManagerRouter)
 
 app.listen(5000, (error) => {
   if (error) console.log(error)
